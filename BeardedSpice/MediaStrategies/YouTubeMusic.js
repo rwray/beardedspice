@@ -30,14 +30,14 @@ BSStrategy = {
     timeInfo = document.querySelector('.ytmusic-player-bar.time-info').innerHTML.split('/');
     thumb = document.querySelector('.ytmusic-player-bar img');
     title = document.querySelector('.ytmusic-player-bar.title');
-    byline = document.querySelector('.byline.ytmusic-player-bar');
+    byline = document.querySelector('.byline.ytmusic-player-bar').title.split(' \u2022 ');
     like = document.querySelector('ytmusic-like-button-renderer');
 
     return {
       'image': thumb.src,
-      'track': title.text.runs[0].text,
-      'artist': Array.from(byline.children)
-        .reduce((acc, curr, i) => i === 0 ? curr.text : `${acc}, ${curr.text}`, '' ),
+      'track': title.title,
+      'artist': byline[0],
+      'album': `${byline[1]} (${byline[2]})`,
       'progress': `${timeInfo[0].trim()} of ${timeInfo[1].trim()}`,
       'favorited': like.getAttribute('like-status') === 'LIKE',
     };
